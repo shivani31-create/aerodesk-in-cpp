@@ -16,7 +16,7 @@ class AerodeskException:public exception
     protected: string msg;
     public:
         explicit AeroDeskException(const string&m):msg(m){}
-        const char*what()const noexcept override{return msg.c_str();
+        const char*what()const noexcept override{return msg.c_str();}
         }
 };
 
@@ -47,3 +47,26 @@ public:
     explicit InvalidInputException(const string&detail)
     :AeroDeskException("Invalid input: "+detail){}
 };
+//
+//ENUM: Seat Class
+//
+enum class SeatClass{ECONOMY,BUSINESS,FIRST};
+
+string seatClassToStr(SeatClass sc){
+  if(sc==SeatClass::ECONOMY)
+    return "Economy";
+  if(sc==SeatClass::BUSINESS)
+    return "Business";
+  return "First";
+}
+
+SeatClassstrToSeatClass(const string&s)
+{
+    if(s=="Economy")
+        return SeatClass::ECONOMY;
+    if(s=="Business")
+        return SeatClass::BUSINESS;
+    if(s=="First")
+        return SeatClass::FIRST;
+    throw InvalidInputException("Unknown seat class" "+s" ". Use Economy/ Business/First")
+}
